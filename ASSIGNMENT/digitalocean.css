@@ -1,0 +1,86 @@
+/* General reset */
+body {
+    margin: 0;
+    font-family: 'Lucida Sans', Arial, sans-serif;
+}
+
+/* Top bar */
+.announcement-bar {
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 8%;
+    font-size: 14px;
+}
+
+.announcement-bar a {
+    text-decoration: none;
+    color: #0069ff;
+    margin-left: 20px;
+}
+
+.left a {
+    color: #000;
+    font-weight: 600;
+}
+
+/* Hero section */
+.hero {
+    background-color: #0069ff;
+    color: white;
+    text-align: center;
+    padding: 120px 20px;
+}
+
+.hero-content {
+    max-width: 780px;
+    margin: auto;
+}
+
+.hero h1 {
+    font-size: 56px;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero .subtitle {
+    font-size: 22px;
+    color: #04459a;
+    margin: 0 auto 50px;
+    max-width: 600px;
+    line-height: 1.4;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.btn.primary {
+    background-color: white;
+    color: #0069ff;
+}
+
+.btn.primary:hover {
+    background-color: #f0f0f0;
+}
+
+.btn.secondary {
+    border: 1px solid white;
+    color: white;
+}
+
+.btn.secondary:hover {
+    background-color: white;
+    color: #0069ff;
+}
