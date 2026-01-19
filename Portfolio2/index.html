@@ -170,11 +170,12 @@
     };
 
     try {
-      await fetch("https://script.google.com/macros/s/AKfycbyWXJsjjGmmD6bcUiOG7cuP71IJCR6Gl8F4cm1YxIkXgDUpFrWRCFJ1wh24yN9CvUBsRA/exec", {
+   await fetch("https://script.google.com/macros/s/AKfycbyw-__gruBDCkQch4759bz2aZBhD7TzmD7BKIvhEi1v7XsMv0Fv4eF6ueOtc7ekw_Px/exec", {
   method: "POST",
   body: JSON.stringify(data),
   headers: { "Content-Type": "application/json" }
 });
+
 
       successMsg.style.display = "block";
       form.reset();
