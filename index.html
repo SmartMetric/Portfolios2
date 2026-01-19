@@ -44,7 +44,7 @@
   <div class="container">
     <h2>Product Order Form</h2>
 
-    <p id="form-success" class="success-msg">
+    <p id="form-success" class="success-msg" style="display:none;">
       Thank you. Your order has been received successfully.
     </p>
 
@@ -135,14 +135,13 @@
   numericOnly(phone);
   numericOnly(altPhone);
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     let valid = true;
 
     if (!phoneRegex.test(phone.value)) {
-      phoneError.textContent =
-        "Enter 10 digits starting with 7, 8, or 9.";
+      phoneError.textContent = "Enter 10 digits starting with 7, 8, or 9.";
       phoneError.style.display = "block";
       valid = false;
     } else {
@@ -150,8 +149,7 @@
     }
 
     if (altPhone.value && !phoneRegex.test(altPhone.value)) {
-      altPhoneError.textContent =
-        "Enter 10 digits starting with 7, 8, or 9.";
+      altPhoneError.textContent = "Enter 10 digits starting with 7, 8, or 9.";
       altPhoneError.style.display = "block";
       valid = false;
     } else {
@@ -160,17 +158,35 @@
 
     if (!valid) return;
 
-    phone.value = "+234" + phone.value;
-    if (altPhone.value) {
-      altPhone.value = "+234" + altPhone.value;
+    const fullPhone = "+234" + phone.value;
+    const fullAltPhone = altPhone.value ? "+234" + altPhone.value : "";
+
+    const data = {
+      fullName: document.getElementById("name").value,
+      phone: fullPhone,
+      altPhone: fullAltPhone,
+      product: document.getElementById("product").value,
+      deliveryType: document.getElementById("delivery").value
+    };
+
+    try {
+   await fetch("https://script.google.com/macros/s/AKfycbyw-__gruBDCkQch4759bz2aZBhD7TzmD7BKIvhEi1v7XsMv0Fv4eF6ueOtc7ekw_Px/exec", {
+  method: "POST",
+  body: JSON.stringify(data),
+  headers: { "Content-Type": "application/json" }
+});
+
+
+      successMsg.style.display = "block";
+      form.reset();
+
+      setTimeout(() => {
+        successMsg.style.display = "none";
+      }, 5000);
+    } catch (error) {
+      alert("There was an error submitting your order. Please try again.");
+      console.error(error);
     }
-
-    successMsg.style.display = "block";
-    form.reset();
-
-    setTimeout(() => {
-      successMsg.style.display = "none";
-    }, 5000);
   });
 </script>
 
