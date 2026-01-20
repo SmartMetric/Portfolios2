@@ -5,9 +5,112 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SmartMetric Portfolio</title>
 
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="stylesheet" href="portfolio.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0a1f4d;
+      --secondary: #143d7a;
+      --accent: #3498db;
+      --bg: linear-gradient(to right, #fdfbfb, #ebedee);
+      --text: #222;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container { width: 90%; max-width: 1100px; margin: auto; }
+
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.6rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .branding { display: flex; align-items: center; justify-content: space-between; }
+    .logo-group { display: flex; align-items: center; gap: 0.8rem; }
+    .logo { width: 50px; }
+
+    #menu-toggle { display: none; }
+    .menu-icon { display: none; font-size: 1.8rem; cursor: pointer; }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a { color: #fff; text-decoration: none; font-weight: 600; }
+
+    @media (max-width: 568px) {
+      .nav-links { display: none; flex-direction: column; background: var(--primary); padding: 1rem; }
+      #menu-toggle:checked + .menu-icon + .nav-links { display: flex; }
+      .menu-icon { display: block; }
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      color: #fff;
+      padding: 2.5rem 1rem;
+      text-align: center;
+    }
+
+    .profile-pic {
+      width: 150px;
+      border-radius: 50%;
+      border: 4px solid rgba(255,255,255,0.7);
+      margin-bottom: 1rem;
+    }
+
+    section { padding: 2rem 1rem; background: #fff; }
+    h2 { text-align: center; color: var(--primary); margin-bottom: 1.2rem; }
+
+    .order-form form {
+      max-width: 600px;
+      margin: auto;
+      background: #f8fafc;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    }
+
+    .form-group { display: flex; flex-direction: column; margin-bottom: 1rem; }
+    .form-group label { font-weight: 600; margin-bottom: 0.3rem; }
+    .form-group input, .form-group select {
+      padding: 0.6rem; border-radius: 8px; border: 1px solid #ccc;
+    }
+
+    .phone-wrapper { display: flex; }
+    .country-code {
+      padding: 0.6rem 0.75rem;
+      background: #eef3fb;
+      border: 1px solid #ccc;
+      border-right: none;
+      border-radius: 8px 0 0 8px;
+      font-weight: 600;
+    }
+    .phone-wrapper input { flex: 1; border-radius: 0 8px 8px 0; border-left: none; }
+
+    .error-msg { color: #c0392b; font-size: 0.85rem; display: none; }
+    .success-msg {
+      display: none; background: #eafaf1; color: #1e7e34;
+      padding: 0.75rem; border-radius: 8px; text-align: center;
+      font-weight: 600; margin-bottom: 1rem;
+    }
+
+    .form-btn {
+      width: 100%; padding: 0.7rem;
+      background: var(--secondary); color: #fff;
+      border: none; border-radius: 10px;
+      font-weight: 600; cursor: pointer;
+    }
+
+    footer {
+      background: var(--primary); color: #fff;
+      text-align: center; padding: 1rem 0; margin-top: 2rem;
+    }
+  </style>
 </head>
 
 <body>
@@ -44,12 +147,10 @@
   <div class="container">
     <h2>Product Order Form</h2>
 
-    <p id="form-success" class="success-msg" style="display:none;">
-      Thank you. Your order has been received successfully.
-    </p>
+    <p id="form-success" class="success-msg">✅ Thank you. Your order has been received successfully.</p>
+    <p id="form-error" class="error-msg" style="color:red;">❌ There was an error submitting your order. Please try again.</p>
 
     <form id="orderForm" novalidate>
-
       <div class="form-group">
         <label for="name">Full Name</label>
         <input type="text" id="name" required />
@@ -59,14 +160,7 @@
         <label for="phone">Phone Number</label>
         <div class="phone-wrapper">
           <span class="country-code">+234</span>
-          <input
-            type="text"
-            id="phone"
-            inputmode="numeric"
-            maxlength="10"
-            placeholder="8012345678"
-            required
-          />
+          <input type="text" id="phone" inputmode="numeric" maxlength="10" placeholder="8012345678" required />
         </div>
         <small class="error-msg" id="phone-error"></small>
       </div>
@@ -75,13 +169,7 @@
         <label for="alt-phone">Alternative Phone Number</label>
         <div class="phone-wrapper">
           <span class="country-code">+234</span>
-          <input
-            type="text"
-            id="alt-phone"
-            inputmode="numeric"
-            maxlength="10"
-            placeholder="8012345678"
-          />
+          <input type="text" id="alt-phone" inputmode="numeric" maxlength="10" placeholder="8012345678" />
         </div>
         <small class="error-msg" id="alt-phone-error"></small>
       </div>
@@ -98,97 +186,4 @@
 
       <div class="form-group">
         <label for="delivery">Type of Delivery</label>
-        <select id="delivery" required>
-          <option value="">-- Select Delivery Type --</option>
-          <option>Normal Delivery</option>
-          <option>Express Delivery</option>
-        </select>
-      </div>
-
-      <button type="submit" class="form-btn">Submit Order</button>
-    </form>
-  </div>
-</section>
-
-<footer>
-  <div class="container">
-    <p>© 2025 SmartMetric. All rights reserved.</p>
-  </div>
-</footer>
-
-<script>
-  const form = document.getElementById("orderForm");
-  const phone = document.getElementById("phone");
-  const altPhone = document.getElementById("alt-phone");
-  const phoneError = document.getElementById("phone-error");
-  const altPhoneError = document.getElementById("alt-phone-error");
-  const successMsg = document.getElementById("form-success");
-
-  const phoneRegex = /^[789][0-9]{9}$/;
-
-  function numericOnly(input) {
-    input.addEventListener("input", () => {
-      input.value = input.value.replace(/[^0-9]/g, "");
-    });
-  }
-
-  numericOnly(phone);
-  numericOnly(altPhone);
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    let valid = true;
-
-    if (!phoneRegex.test(phone.value)) {
-      phoneError.textContent = "Enter 10 digits starting with 7, 8, or 9.";
-      phoneError.style.display = "block";
-      valid = false;
-    } else {
-      phoneError.style.display = "none";
-    }
-
-    if (altPhone.value && !phoneRegex.test(altPhone.value)) {
-      altPhoneError.textContent = "Enter 10 digits starting with 7, 8, or 9.";
-      altPhoneError.style.display = "block";
-      valid = false;
-    } else {
-      altPhoneError.style.display = "none";
-    }
-
-    if (!valid) return;
-
-    const fullPhone = "+234" + phone.value;
-    const fullAltPhone = altPhone.value ? "+234" + altPhone.value : "";
-
-    const data = {
-      fullName: document.getElementById("name").value,
-      phone: fullPhone,
-      altPhone: fullAltPhone,
-      product: document.getElementById("product").value,
-      deliveryType: document.getElementById("delivery").value
-    };
-
-    try {
-   await fetch("https://script.google.com/macros/s/AKfycbyw-__gruBDCkQch4759bz2aZBhD7TzmD7BKIvhEi1v7XsMv0Fv4eF6ueOtc7ekw_Px/exec", {
-  method: "POST",
-  body: JSON.stringify(data),
-  headers: { "Content-Type": "application/json" }
-});
-
-
-      successMsg.style.display = "block";
-      form.reset();
-
-      setTimeout(() => {
-        successMsg.style.display = "none";
-      }, 5000);
-    } catch (error) {
-      alert("There was an error submitting your order. Please try again.");
-      console.error(error);
-    }
-  });
-</script>
-
-</body>
-</html>
+        <select id="delivery"
